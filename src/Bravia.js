@@ -1,6 +1,11 @@
 "use strict";
 
 const request = require("request");
+//clpham:
+// const fs = require('fs');
+// let myCertFile = fs.readFileSync('/mnt/fsx0/proj/clpham/easy-rsa/vpn@home/easyrsa3/pki/issued/clpham.crt');
+// let myKeyFile = fs.readFileSync('/mnt/fsx0/proj/clpham/easy-rsa/vpn@home/easyrsa3/pki/private/clpham.key');
+// let myCaFile = fs.readFileSync('/mnt/fsx0/proj/clpham/easy-rsa/vpn@home/easyrsa3/pki/ca.crt');
 
 class Bravia
 {
@@ -99,6 +104,15 @@ class Bravia
     callback = callback || function(){};
     request.post({
       url: this.getEndpoint() + "/sony/ircc",
+	  //clpham:
+	  // cert: myCertFile,
+	  // key: myKeyFile,
+	  // ca: myCaFile,
+	  auth: {
+		username: "ajax10g",
+		password: "goldeneye123x"
+	  },
+
       headers: {
         "X-Auth-PSK": this.config.psk,
         "Content-Type": "text/xml; charset=UTF-8",
@@ -156,6 +170,15 @@ class Bravia
     callback = callback || function(){};
     request.post({
       url: this.getEndpoint() + options.path,
+	  //clpham:
+	  // cert: myCertFile,
+	  // key: myKeyFile,
+	  // ca: myCaFile,
+	  auth: {
+		username: "ajax10g",
+		password: "goldeneye123x"
+	  },
+
       headers: {
         "X-Auth-PSK": this.config.psk,
         "Content-Type": "application/json"
@@ -171,7 +194,9 @@ class Bravia
   }
 
   getEndpoint() {
-    return "http://" + this.config.ip + ":" + this.config.port;
+    // return "http://" + this.config.ip + ":" + this.config.port;
+	//clpham:
+    return "https://" + this.config.ip + "/bravia";
   }
 }
 
